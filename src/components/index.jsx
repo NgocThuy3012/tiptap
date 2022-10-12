@@ -38,11 +38,6 @@ const TipTap = () => {
 }
 
 const MenuBar = ({editor}) => {
-    const change = (e) => {
-        if(e.target.value){
-            editor.chain().focus().toggleHeading({level:e.target.value}).run()
-        }
-    }
 
     const addImage = () => {
         const url = window.prompt('URL')
@@ -70,14 +65,18 @@ const MenuBar = ({editor}) => {
     }
     return (
         <div>
-            <select onChange={(e)=>change(e)}>
-                <option value={1}>Heading 1</option>
-                <option value={2}>Heading 2</option>
-                <option value={3}>Heading 3</option>
-                <option value={4}>Heading 4</option>
-                <option value={5}>Heading 5</option>
-                <option value={6}>Heading 6</option>
-            </select>
+            <div className="dropdown">
+                <span className="dropbtn">Heading...</span>
+                <div className="dropdown-content">
+                    <div onClick={()=>editor.chain().focus().toggleHeading({level: 1}).run()}>Heading 1</div>
+                    <div onClick={()=>editor.chain().focus().toggleHeading({level: 2}).run()}>Heading 2</div>
+                    <div onClick={()=>editor.chain().focus().toggleHeading({level: 3}).run()}>Heading 3</div>
+                    <div onClick={()=>editor.chain().focus().toggleHeading({level: 4}).run()}>Heading 4</div>
+                    <div onClick={()=>editor.chain().focus().toggleHeading({level: 5}).run()}>Heading 5</div>
+                    <div onClick={()=>editor.chain().focus().toggleHeading({level: 6}).run()}>Heading 6</div>
+                </div>
+                
+            </div>
             <button onClick={()=>editor.chain().focus().toggleHeading({ level: 1 }).run()}>h1</button>
             <button 
                 onClick={()=>editor.chain().focus().toggleBold().run()}
