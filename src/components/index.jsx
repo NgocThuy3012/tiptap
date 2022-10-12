@@ -34,7 +34,9 @@ const TipTap = () => {
 
 const MenuBar = ({editor}) => {
     const change = (e) => {
-        return editor.chain().focus().toggleHeading({level:e.target.value}).run()
+        if(e.target.value){
+            editor.chain().focus().toggleHeading({level:e.target.value}).run()
+        }
     }
 
     const addImage = () => {
@@ -58,7 +60,7 @@ const MenuBar = ({editor}) => {
                 <option value={5}>Heading 5</option>
                 <option value={6}>Heading 6</option>
             </select>
-            {/* <button onClick={()=>editor.chain().focus().toggleHeading({ level: 1 }).run()}>h1</button> */}
+            <button onClick={()=>editor.chain().focus().toggleHeading({ level: 1 }).run()}>h1</button>
             <button 
                 onClick={()=>editor.chain().focus().toggleBold().run()}
                 disabled={
@@ -78,13 +80,13 @@ const MenuBar = ({editor}) => {
                 <BiItalic/>
             </button>
             <button
-                    onClick={()=>editor.chain().focus().toggleBulletList().run()}
-                >
+                onClick={()=>editor.chain().focus().toggleBulletList().run()}
+            >
                 <BiListUl />
             </button>
             <button
-                    onClick={()=>editor.chain().focus().toggleOrderedList().run()}
-                >
+                onClick={()=>editor.chain().focus().toggleOrderedList().run()}
+            >
                 <BiListOl/>
             </button>
             <button
@@ -98,18 +100,18 @@ const MenuBar = ({editor}) => {
                 <MdFormatAlignLeft/>
             </button>
             <button
-                    onClick={() => editor.chain().focus().undo().run()}
-                >
+                onClick={() => editor.chain().focus().undo().run()}
+            >
                 <BiUndo/>
             </button>
             <button
-                    onClick={() => editor.chain().focus().redo().run()}
-                >
+                onClick={() => editor.chain().focus().redo().run()}
+            >
                 <BiRedo/>
             </button>
             <button
-                    onClick={addImage}
-                >
+                onClick={addImage}
+            >
                 <BsImage/>
             </button>
            
