@@ -124,9 +124,14 @@ const MenuBar = ({editor}) => {
         })
       }
 
+      const randomNumber = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
+
     const addImageFromComputer = (url) => {
+        const src = 'https://picsum.photos/id/'+randomNumber(1,1000)+'/200/300'
         if (url) {
-            editor.chain().focus().setImage({ src: url }).run()
+            editor.chain().focus().setImage({ src: src }).run()
           }
     }   
     
@@ -259,7 +264,11 @@ const MenuBar = ({editor}) => {
                 <BiRedo/>
             </button>
            
-           <input type={'file'} onChange={(e)=>{handleChange(e)}}/>
+           <label htmlFor="image-upload">
+                <BsImage/>
+                <input id="image-upload" className="hidden" type={'file'} onChange={(e)=>{handleChange(e)}}/>
+           </label>
+           
            
         </div>
     )
