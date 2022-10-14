@@ -3,7 +3,7 @@ import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import { useCallback } from "react"
+import { useCallback, useTransition } from "react"
 import {BiBold, BiItalic, BiListUl, BiListOl, BiRedo, BiUndo, BiTable} from "react-icons/bi"
 import {BsImage, BsYoutube} from "react-icons/bs"
 import {MdFormatAlignRight, MdFormatAlignLeft, MdKeyboardArrowDown} from "react-icons/md"
@@ -14,9 +14,6 @@ import TableRow from "@tiptap/extension-table-row"
 import TableHeader from "@tiptap/extension-table-header"
 import TableCell from "@tiptap/extension-table-cell"
 import Youtube from "@tiptap/extension-youtube"
-import {Plugin} from "prosemirror-state"
-import {Decoration, DecorationSet} from "prosemirror-view"
-import { upload } from "@testing-library/user-event/dist/upload"
 
 const TipTap = () => {
     const editor = useEditor({
@@ -124,20 +121,24 @@ const MenuBar = ({editor}) => {
         })
       }
 
-      const randomNumber = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min
-      }
+    const randomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+    }
 
     const addImageFromComputer = (url) => {
-        const src = 'https://picsum.photos/id/'+randomNumber(1,1000)+'/200/300'
         if (url) {
-            editor.chain().focus().setImage({ src: src }).run()
-          }
+            editor.chain().focus().setImage({ src: url, title: 'An example' }).run()
+        }
     }   
     
     const handleChange = (e) => {
-       addImageFromComputer(URL.createObjectURL(e.target.files[0]))
-      }
+        addImageFromComputer(URL.createObjectURL(e.target.files[0]))
+        const src = 'https://picsum.photos/id/'+randomNumber(1,2000)+'/200/300'
+        setTimeout(()=>{
+            addImageFromComputer(src)
+        },2000) 
+        
+    }
     
 
     if(!editor){
