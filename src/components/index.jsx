@@ -14,6 +14,9 @@ import TableRow from "@tiptap/extension-table-row"
 import TableHeader from "@tiptap/extension-table-header"
 import TableCell from "@tiptap/extension-table-cell"
 import Youtube from "@tiptap/extension-youtube"
+import {Plugin} from "prosemirror-state"
+import {Decoration, DecorationSet} from "prosemirror-view"
+import { upload } from "@testing-library/user-event/dist/upload"
 
 const TipTap = () => {
     const editor = useEditor({
@@ -120,6 +123,17 @@ const MenuBar = ({editor}) => {
           height: 480,
         })
       }
+
+    const addImageFromComputer = (url) => {
+        if (url) {
+            editor.chain().focus().setImage({ src: url }).run()
+          }
+    }   
+    
+    const handleChange = (e) => {
+       addImageFromComputer(URL.createObjectURL(e.target.files[0]))
+      }
+    
 
     if(!editor){
         return null
@@ -245,6 +259,7 @@ const MenuBar = ({editor}) => {
                 <BiRedo/>
             </button>
            
+           <input type={'file'} onChange={(e)=>{handleChange(e)}}/>
            
         </div>
     )
